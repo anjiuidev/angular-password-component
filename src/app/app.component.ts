@@ -23,5 +23,6 @@ export class AppComponent {
     passwordChanged(event){
         this.loginForm.get('password').setValue(event);
     }
+     
     
 }
