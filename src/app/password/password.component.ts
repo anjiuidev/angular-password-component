@@ -18,8 +18,8 @@ export class PasswordComponent implements OnInit {
   passwordForm: FormGroup;
 
   @Input() passwordMatch: boolean = false;
-  @Input() labelOneValue: string = 'Password:';
-  @Input() labelTwoValue: string = 'Confirm Password:';
+  @Input() labelOneValue: string = 'Password';
+  @Input() labelTwoValue: string = 'Confirm Password';
   @Input() showLabel: boolean = false;
 
   @Output() passwordChange = new EventEmitter();
@@ -30,7 +30,7 @@ export class PasswordComponent implements OnInit {
 
   formInit() {
     this.passwordForm = this.fb.group({
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      password: ['', Validators.compose([Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')])],
       confirmPassword: ['']
     }, {
         validator: PasswordValidation.MatchPassword
@@ -54,11 +54,11 @@ export class PasswordComponent implements OnInit {
     this.numberFlag = passWord.match(/[0-9]/) ? 15 : 0;
     this.capiltalFlag = passWord.match(/[A-Z]/) ? 15 : 0;
 
-    if (this.passLength > 4 && this.passLength <= 6) {
+    if (this.passLength > 4 && this.passLength <= 5) {
       this.numberGenerator = 25;
-    } else if (this.passLength >= 7 && this.passLength <= 9) {
+    } else if (this.passLength >= 6 && this.passLength <= 7) {
       this.numberGenerator = 35;
-    } else if (this.passLength > 9) {
+    } else if (this.passLength >= 8) {
       this.numberGenerator = 55;
     } else if (this.passLength > 0 && this.passLength <= 4) {
       this.numberGenerator = 15;
